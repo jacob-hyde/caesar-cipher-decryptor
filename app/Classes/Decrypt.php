@@ -69,6 +69,9 @@ class Decrypt {
         return $this->decryptWithCipherLetterMapping($this->text, $letterMapping);
     }
 
+    /**
+     * Given the cipher text and letter mapping create a cross reference key
+     */
     public function decryptWithCipherLetterMapping($cipherText, $letterMapping) {
         $key = array_fill(0, strlen(self::letters), 'x');
         foreach (str_split(self::letters) as $i => $cipherLetter) {
@@ -83,6 +86,9 @@ class Decrypt {
         return $this->translateMessage($key, $cipherText);
     }
 
+    /**
+     * Translate a message from a key
+     */
     public function translateMessage($key, $message) {
         $translated = '';
         $charsA = $key;
@@ -103,6 +109,9 @@ class Decrypt {
         return $translated;
     }
 
+    /**
+     * Generates a unique array 
+     */
     private function _createCipherWordList() {
         $this->cipherWordList = preg_replace("/[\s]/", " ", preg_replace(self::nonLettersOrSpacePattern, ' ', strtoupper($this->text)));
         $this->cipherWordList = explode(" ", $this->cipherWordList);
